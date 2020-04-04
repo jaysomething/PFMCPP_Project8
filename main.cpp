@@ -1,49 +1,33 @@
 /*
-
 Project 8: Part 1/1
 video: Chapter 4 Part 6
-
 Purpose:  This project will teach you more about casting across class hierarchies as well as range-based for() loops, and issues that come with inheritance.
-
 Create a branch named Part1
-
 Public vs. Protected vs Private & Friend
-
 Build/Run often with this task to make sure you're not breaking the code with each step.
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
-    it's very easy to mess this task up. 
-
-your task: 
-    0) get familiar with the classes. 
-
-    1) Fix the include errors. 
-
-    2) HighwayPatrol can check the speed of vehicles on the highway. 
+    it's very easy to mess this task up.
+your task:
+    0) get familiar with the classes.
+    1) Fix the include errors.
+    2) HighwayPatrol can check the speed of vehicles on the highway.
         make this happen without adding getters to the Highway or Vehicle class
-
-    3) implement the Highway::addVehicleInternal 
+    3) implement the Highway::addVehicleInternal
         this function should call the non-evasive member function of the derived class, so use the technique shown in the Casting video.
-
     4) implement the Highway::removeVehicleInternal
         this function should call the evasive member function of the derived class, if it has one. use the technique shown in the Casting video.
-
     5) Add a Truck type
-        semi-trucks don't evade when they're pulled over, unlike cars and motorcycles.  
-
+        semi-trucks don't evade when they're pulled over, unlike cars and motorcycles.
     6) Add some Cars to the Highway
     7) Add some Motorcycles to the Highway
-    8) Add some SemiTrucks to the highway. 
-
+    8) Add some SemiTrucks to the highway.
     9) clear any warnings as best you can, based on what you've learned in the previous projects
         see the note in main() about implementing the special member functions.
         This will clear a lot of warnings if implemented correctly.
-
  Commit your changes by clicking on the Source Control panel on the left, entering a message, and click [Commit and push].
  
 Make a pull request after you make your first commit and pin the pull request link to our DM thread.
-
 send me a DM to check your pull request
-
  Wait for my code review.
  */
 
@@ -51,6 +35,12 @@ send me a DM to check your pull request
 #include <vector>
 #include <algorithm>
 #include <cassert>
+
+#include "Highway.h"
+#include "Car.h"
+#include "Motorcycle.h"
+#include "SemiTruck.h"
+#include "HighwayPatrol.h"
 
 int main()
 {
@@ -101,16 +91,36 @@ int main()
      construct 2 more Car instances via emplace_back.
      */
     
+    cars.emplace_back("allen");
+    cars.emplace_back("betty");
+    
     /*
      now reserve and emplace_back your Trucks and Motorcyles
      */
+    motorcycles.reserve(1);
+    motorcycles.emplace_back("charles");
     
+    trucks.reserve(1);
+    trucks.emplace_back("dave");
     
-    
-    
-    assert(false);
+    //assert(false);
     //add the cars, motorcycles and trucks to the highway using range-based for() loops: for( element : vec ) { ... }
     //be careful to not accidentally make element copies when iterating.
+    
+    for (auto& element : cars)
+    {
+        highway.addVehicle(&element);
+    }
+    
+    for (auto& element : motorcycles)
+    {
+        highway.addVehicle(&element);
+    }
+    
+    for (auto& element : trucks)
+    {
+        highway.addVehicle(&element);
+    }
     
     HighwayPatrol cop;
     cop.scanHighway(&highway);
